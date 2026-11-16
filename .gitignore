@@ -1,0 +1,19 @@
+# Python and Jupyter
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.pytest_cache/
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+.env
+.env.*
+!.env.example
+.DS_Store
+
+# Generated outputs (existing tracked data remain tracked)
+analysis/model_results.json
+outputs/
+reports/generated/
