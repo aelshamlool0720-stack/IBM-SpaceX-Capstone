@@ -1,41 +1,76 @@
 # Falcon 9 First-Stage Landing Prediction
 
-**IBM Data Science Professional Certificate · Applied Data Science Capstone**  
-**Project:** Explore and classify first-stage recovery outcomes in historical Falcon 9 launch data.
+**An end-to-end data science case study | IBM Applied Data Science Capstone**
 
-![Model accuracy comparison](assets/model_comparison.svg)
+Can historical launch data help distinguish successful from unsuccessful Falcon 9 first-stage recoveries? This repository documents the process—from acquiring historical data to exploring launch conditions, building an interactive dashboard, and evaluating supervised classification models.
 
-> **Scope:** Course-based educational project using historical, curated IBM lab datasets. It is **not a live SpaceX prediction system**, nor are the lab datasets interchangeable. My submitted IBM lab notebooks and a separately reproduced analysis are both documented here.
+![Model-comparison chart](assets/model_comparison.svg)
 
-## At a glance
+> **Scope:** This is an educational analysis based on historical IBM SkillsNetwork course datasets. It is not a live SpaceX prediction service or an operational risk model.
 
-| Part | Methods and tools |
+## Key findings
+
+| Metric | Reproduced historical result |
 |---|---|
-| Collect | SpaceX API, Wikipedia/BeautifulSoup |
-| Prepare | Python, Pandas, data validation, missing values, one-hot encoding |
-| Analyze | SQL/SQLite, exploratory visualization |
-| Explore | Folium launch-site maps, interactive Plotly Dash |
-| Predict | Logistic regression, SVM, decision tree, KNN, scikit-learn |
+| EDA and modeling dataset | 90 launch records |
+| Successful first-stage recoveries | 60 / 90 (66.7%) |
+| Top held-out accuracy | 83.3% (15 / 18) — Logistic Regression and SVM |
+| Important limitation | Logistic Regression predicted success for 3 of 6 actual failures |
 
-### Results from the reproduced historical analysis
+The 18-flight test sample is small. Accuracy should not be taken as a reliable estimate of performance on future launches. See [full results and caveats](analysis/RESULTS.md).
 
-The EDA/modeling sample contains **90 launches**, with **60 successful first-stage recoveries** (66.7%). The best reported held-out test accuracy was **83.3% (15/18 flights)** for both logistic regression and SVM. Logistic regression also incorrectly predicted success for **3 of 6 actual failed recoveries**; this is an important limitation. On such a small test set, model ranking and estimated accuracy are uncertain.
+## Project workflow
 
-For full method and source details, see the [results and provenance notes](analysis/RESULTS.md) and the [reproduction script](analysis/reproduce_results.py). A separate [recruiter-facing case study](docs/CASE_STUDY.md) explains the technical decisions and practical limitations.
+| Stage | What is demonstrated | Tools |
+|---|---|---|
+| Data collection | SpaceX API requests and historical Wikipedia table extraction | Requests, BeautifulSoup |
+| Cleaning & exploration | Feature preparation, trends, launch-site and orbit comparisons | Pandas, NumPy, Matplotlib, Seaborn |
+| Database analysis | Historical launch questions and aggregation | SQL, SQLite |
+| Mapping & dashboard | Launch-site exploration and interactive outcome charts | Folium, Plotly Dash |
+| Prediction | Train/test evaluation of Logistic Regression, SVM, Decision Tree, and KNN | Scikit-learn |
 
-## Explore the repository
+## Start here
 
-- [Case study](docs/CASE_STUDY.md) — problem, workflow, methods, quantitative results, limitations
-- [Measured results and data provenance](analysis/RESULTS.md) — model and chart evidence
-- [Reproduce the model comparison](analysis/reproduce_results.py) — Python script
-- [SQL queries](analysis/spacex_sql_queries.sql) — ten course queries
-- [Interactive dashboard source](spacex_dash_app.py) — site and payload selectors
-- [LinkedIn profile and post copy](docs/LINKEDIN.md) — attribution-aware descriptions
-- Original course lab notebooks are provided in the repository root.
+- **[Project case study](docs/CASE_STUDY.md)** — problem, approach, outcomes, and limitations
+- **[Results and data provenance](analysis/RESULTS.md)** — evaluation details, dataset definitions, and numerical evidence
+- **[Interactive dashboard](dashboard/)** — runnable application and its historical dashboard dataset
+- **[Model reproduction script](analysis/reproduce_results.py)** — executable four-model comparison
+- **[Original IBM lab notebooks](notebooks/)** — six preserved exercises organized by workflow
+- **[SQL analysis queries](analysis/spacex_sql_queries.sql)** — the ten SQLite lab queries
+
+## Repository structure
+
+```text
+.
+├── README.md
+├── requirements.txt
+├── analysis/
+│   ├── RESULTS.md
+│   ├── reproduce_results.py
+│   └── spacex_sql_queries.sql
+├── assets/
+│   └── model_comparison.svg
+├── dashboard/
+│   ├── README.md
+│   ├── app.py
+│   └── spacex_launch_dash.csv
+├── docs/
+│   ├── CASE_STUDY.md
+│   └── portfolio/
+│       └── linkedin-copy.md
+└── notebooks/
+    ├── README.md
+    ├── 01_api_data_collection.ipynb
+    ├── 02_wikipedia_web_scraping.ipynb
+    ├── 03_exploratory_data_analysis.ipynb
+    ├── 04_sql_exploration.ipynb
+    ├── 05_launch_site_mapping.ipynb
+    └── 06_machine_learning_classification.ipynb
+```
 
 ## Run the project
 
-Python 3.10+ is recommended. From a terminal, clone the repository and create a virtual environment:
+Requires Python 3.10+ and internet access for the reanalysis script.
 
 ```bash
 git clone https://github.com/aelshamlool0720-stack/IBM-SpaceX-Capstone.git
@@ -43,47 +78,24 @@ cd IBM-SpaceX-Capstone
 python -m venv .venv
 source .venv/bin/activate
 python -m pip install -r requirements.txt
-```
 
-On Windows PowerShell, activate with `.venv\\Scripts\\Activate.ps1` instead of `source .venv/bin/activate`.
-
-**Dashboard:** The checked-in `spacex_launch_dash.csv` is the dedicated 56-row dashboard dataset.
-
-```bash
-python spacex_dash_app.py
-```
-
-Open the local URL shown by Dash (typically http://127.0.0.1:8050). This runs locally, **not as a hosted live demo**.
-
-**Model reanalysis:** The script downloads two IBM datasets, so it requires internet access.
-
-```bash
+# Reproduce the four-model comparison
 python analysis/reproduce_results.py
+
+# Start the local interactive dashboard (requires no further data download)
+python dashboard/app.py
 ```
 
-The script writes `analysis/model_results.json`. Use the [results notes](analysis/RESULTS.md) to compare model accuracy and confusion matrices.
+On Windows PowerShell, activate your environment with `.venv\Scripts\Activate.ps1`. Dash prints a local URL, usually `http://127.0.0.1:8050`; the app is **not deployed** online.
 
-**Other notebooks:** Open the `.ipynb` files with JupyterLab and run their cells, noting that API/web-scraping labs may depend on external services and website structure. The files are course-lab artifacts, not a single production pipeline.
+For the course notebooks, run `jupyter lab` and open a file under [`notebooks/`](notebooks/). Some older labs use notebook-specific installation commands, downloads, or IPython SQL extensions. The **separate** reanalysis script is the straightforward way to reproduce the comparison above.
 
-## Data sets and caution
+## Data provenance and limitations
 
-| IBM task | Data count |
-|---|---:|
-| EDA/modeling | 90 rows |
-| Dash | 56 rows |
-| SQLite lab | 101 rows |
+IBM provided different historical datasets for different exercises: **90 records** for EDA/modeling, **56** for the dashboard, and **101** for SQL. The samples are not interchangeable, and the published figures do not describe today's launches. Site and orbit patterns are descriptive rather than causal; a randomly held-out historical sample does not establish prospective predictive reliability.
 
-These are snapshots selected for different IBM assignments. Do not compare rates across them without stating their denominators, or generalize them to current launches. Launch-site associations are not causal, and a random train/test split does not establish prospective performance on future launches.
+The six notebooks are **IBM course-based exercises, preserved and clearly labeled as such**. The supplementary script, analysis documentation, project presentation and repository structure provide additional reproducible organization and evaluation; none of this represents a production-grade SpaceX application.
 
 ## Attribution
 
-This project is adapted from the **IBM Applied Data Science Capstone** course. It uses IBM SkillsNetwork historical course datasets, SpaceX API material, and public historical launch information. The additional modeling comparison is explicitly documented as a *separate reproduction* from the course samples. The project does not represent an affiliation with SpaceX.
-
-## Next improvements
-
-- Compare random holdout against a **chronological** validation split.
-- Add tests for core data-processing functions and clearer data-download failures.
-- Package reusable code rather than relying only on course notebooks.
-- Report uncertainty and failure-class precision/recall alongside accuracy.
-
-**Full report:** a refined PDF and editable PowerPoint were prepared separately for portfolio presentation. If you download those materials, upload the PDF to `reports/` before adding a link here.
+Created as part of the **IBM Data Science Professional Certificate — Applied Data Science Capstone**. Original course material and historical datasets are credited to IBM SkillsNetwork, with underlying public information from the SpaceX API and Wikipedia. No affiliation with or endorsement by SpaceX is implied.

@@ -50,7 +50,7 @@ The logistic-regression confusion matrix was **[[3, 3], [0, 12]]**, using unsucc
 - [Reproduction script](../analysis/reproduce_results.py)
 - [Recorded results and provenance](../analysis/RESULTS.md)
 - [SQL exercise queries](../analysis/spacex_sql_queries.sql)
-- [Dashboard application](../spacex_dash_app.py)
+- [Dashboard application](../dashboard/app.py)
 - [Project root README](../README.md)
 
 ## Authorship and attribution

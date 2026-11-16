@@ -2,7 +2,7 @@
 
 Requires spacex_launch_dash.csv in the same directory.
 Install dependencies: python -m pip install pandas dash plotly
-Run: python spacex_dash_app.py
+Run from repository root: python dashboard/app.py
 """
 from pathlib import Path
 import pandas as pd
