@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="600" viewBox="0 0 1100 600" role="img" aria-labelledby="title desc">
+<title id="title">Falcon 9 model comparison on an 18-flight historical test set</title>
+<desc id="desc">Logistic regression 83.3%, SVM 83.3%, decision tree 72.2%, k-nearest neighbors 77.8%. The test sample has 18 flights.</desc>
+<rect width="1100" height="600" rx="24" fill="#0b1b2b"/>
+<text x="58" y="70" fill="#f1f7fa" font-size="39" font-family="Arial,sans-serif" font-weight="700">Falcon 9 landing prediction</text>
+<text x="58" y="114" fill="#9eb8c9" font-size="21" font-family="Arial,sans-serif">Held-out test accuracy · IBM 90-launch historical sample · n=18 test flights</text>
+<g font-family="Arial,sans-serif" font-size="23" fill="#eff8fa">
+<text x="62" y="188">Logistic regression</text><text x="62" y="274">Support vector machine</text><text x="62" y="360">Decision tree</text><text x="62" y="446">K-nearest neighbors</text></g>
+<g fill="#1d364a"><rect x="362" y="156" width="590" height="40" rx="8"/><rect x="362" y="242" width="590" height="40" rx="8"/><rect x="362" y="328" width="590" height="40" rx="8"/><rect x="362" y="414" width="590" height="40" rx="8"/></g>
+<g fill="#2bbf9a"><rect x="362" y="156" width="491.5" height="40" rx="8"/><rect x="362" y="242" width="491.5" height="40" rx="8"/></g>
+<g fill="#e28e59"><rect x="362" y="328" width="426" height="40" rx="8"/><rect x="362" y="414" width="459" height="40" rx="8"/></g>
+<g font-family="Arial,sans-serif" font-size="25" font-weight="bold" fill="#f2f8fa">
+<text x="976" y="187" text-anchor="end">83.3%</text><text x="976" y="273" text-anchor="end">83.3%</text><text x="976" y="359" text-anchor="end">72.2%</text><text x="976" y="445" text-anchor="end">77.8%</text>
+</g>
+<line x1="58" x2="1042" y1="498" y2="498" stroke="#29485c"/>
+<text x="58" y="535" fill="#fac08f" font-size="21" font-family="Arial,sans-serif">Caution: logistic regression misclassified 3 of the 6 actual failed recoveries.</text>
+<text x="58" y="566" fill="#99b6c5" font-size="16" font-family="Arial,sans-serif">IBM Data Science Professional Certificate capstone · Reproduced analysis, not live SpaceX statistics</text>
+</svg>
